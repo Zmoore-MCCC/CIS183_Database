@@ -2,10 +2,10 @@ package com.example.cis183_database;
 
 public class User
 {
-    int id;
-    String fname;
-    String lname;
-    String email;
+    private int id;
+    private String fname;
+    private String lname;
+    private String email;
 
     public User()
     {

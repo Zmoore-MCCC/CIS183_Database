@@ -1,5 +1,6 @@
 package com.example.cis183_database;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -65,7 +66,8 @@ public class MainActivity extends AppCompatActivity
                 //get the first name associated with this userid if it exists
                 if(SessionData.getLoggedInUser() != null)
                 {
-                    tv_j_userFname.setText(SessionData.getLoggedInUser().getFname());
+                    //tv_j_userFname.setText(SessionData.getLoggedInUser().getFname());
+                    startActivity(new Intent(MainActivity.this, WelcomePage.class));
                 }
                 else {
                     tv_j_userFname.setText("Error");

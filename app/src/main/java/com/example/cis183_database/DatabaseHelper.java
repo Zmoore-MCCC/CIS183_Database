@@ -243,4 +243,51 @@ public class DatabaseHelper extends SQLiteOpenHelper
         }
 
     }
+
+    public int getNumPostsGivenId(int id)
+    {
+        int numPosts = 0;
+        String selectStatement = "SELECT COUNT(userId) FROM " + posts_table_name + " WHERE userId ='" + id + "';";
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery(selectStatement, null);
+
+        if(cursor != null)
+        {
+            cursor.moveToFirst();
+            //give getInt 0 for the first thing that is returned.  This should always return one thing because I am using the count function in sql
+            //using getInt because count will return an int.
+            numPosts = cursor.getInt(0);
+        }
+        else {
+            //error the userid was not found.
+        }
+
+        db.close();
+        return numPosts;
+    }
+
+    public Post getMostRecentPostGivenId(int id)
+    {
+        Post rPost = new Post();
+
+        String selectStatement = "SELECT postData, category FROM " + posts_table_name + " WHERE userId = '" + id + "' order by postId desc;";
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery(selectStatement, null);
+
+        if(cursor != null)
+        {
+            cursor.moveToFirst();
+            rPost.setPost(cursor.getString(0));
+            rPost.setCategory(cursor.getString(1));
+        }
+        else
+        {
+            //user not found
+        }
+        db.close();
+        return rPost;
+    }
+
 }
