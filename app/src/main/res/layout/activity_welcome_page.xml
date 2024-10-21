@@ -13,8 +13,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="9dp"
+        android:layout_marginBottom="8dp"
         android:text="Welcome"
         android:textSize="34sp"
+        app:layout_constraintBottom_toTopOf="@+id/tv_v_wp_name"
         app:layout_constraintEnd_toEndOf="@+id/tv_v_wp_name"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -22,9 +24,10 @@
         android:id="@+id/tv_v_wp_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginBottom="1dp"
         android:text="Zackary Moore"
         android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/tv_v_wp_numPosts"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
@@ -34,18 +37,33 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="39dp"
+        android:layout_marginBottom="20dp"
         android:text="# of Posts: "
         android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_v_welcome_makePost"
         app:layout_constraintStart_toStartOf="@+id/tv_v_wp_name"
         app:layout_constraintTop_toBottomOf="@+id/tv_v_wp_name" />
 
     <TextView
         android:id="@+id/tv_v_wp_recentPost"
-        android:layout_width="404dp"
-        android:layout_height="116dp"
-        android:layout_marginTop="222dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="393dp"
         android:singleLine="false"
         android:text="This is an example post testing a long text to see if it will wrap around. testing ;alksjdf i a;lskdjf ioeja; lkdjfie "
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_v_welcome_makePost" />
+
+    <Button
+        android:id="@+id/btn_v_welcome_makePost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="21dp"
+        android:layout_marginBottom="30dp"
+        android:text="Make Post"
+        app:layout_constraintBottom_toTopOf="@+id/tv_v_wp_recentPost"
+        app:layout_constraintStart_toStartOf="@+id/tv_v_wp_name"
+        app:layout_constraintTop_toBottomOf="@+id/tv_v_wp_numPosts" />
 </androidx.constraintlayout.widget.ConstraintLayout>

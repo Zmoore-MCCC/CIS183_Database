@@ -269,15 +269,16 @@ public class DatabaseHelper extends SQLiteOpenHelper
 
     public Post getMostRecentPostGivenId(int id)
     {
-        Post rPost = new Post();
+        Post rPost = null;
 
         String selectStatement = "SELECT postData, category FROM " + posts_table_name + " WHERE userId = '" + id + "' order by postId desc;";
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.rawQuery(selectStatement, null);
 
-        if(cursor != null)
+        if(cursor.moveToFirst())
         {
+            rPost = new Post();
             cursor.moveToFirst();
             rPost.setPost(cursor.getString(0));
             rPost.setCategory(cursor.getString(1));
@@ -288,6 +289,19 @@ public class DatabaseHelper extends SQLiteOpenHelper
         }
         db.close();
         return rPost;
+    }
+
+    public void addUserToDB(User u)
+    {
+        //get an instance of a writeable database
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        //we need our sql insert statement to look like this:
+        //INSERT INTO users (fname, lname, email) VALUES ('Bobby','Smith','Bsmith@bsmith.org');
+
+        db.execSQL("INSERT INTO " + users_table_name + " (fname, lname, email) VALUES ('" + u.getFname() + "','" + u.getLname() + "','" + u.getEmail() + "');");
+
+        db.close();
     }
 
 }

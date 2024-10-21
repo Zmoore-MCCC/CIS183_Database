@@ -1,6 +1,9 @@
 package com.example.cis183_database;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -15,6 +18,7 @@ public class WelcomePage extends AppCompatActivity
     TextView tv_j_numOfPosts;
     TextView tv_j_recentPost;
     DatabaseHelper dbHelper;
+    Button btn_j_makePost;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,14 +29,24 @@ public class WelcomePage extends AppCompatActivity
         tv_j_loggedInUserName = findViewById(R.id.tv_v_wp_name);
         tv_j_numOfPosts       = findViewById(R.id.tv_v_wp_numPosts);
         tv_j_recentPost       = findViewById(R.id.tv_v_wp_recentPost);
+        btn_j_makePost        = findViewById(R.id.btn_v_welcome_makePost);
 
         dbHelper = new DatabaseHelper(this);
 
         setWelcomeMessage();
         setNumberOfPosts();
         setRecentPost();
+        makePostButtonClickListener();
     }
-
+    private void makePostButtonClickListener()
+    {
+        btn_j_makePost.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(WelcomePage.this, MakePost.class));
+            }
+        });
+    }
     private void setWelcomeMessage()
     {
         tv_j_loggedInUserName.setText(SessionData.getLoggedInUser().getFname() + " " + SessionData.getLoggedInUser().getLname());
@@ -47,6 +61,14 @@ public class WelcomePage extends AppCompatActivity
 
     private void setRecentPost()
     {
-        tv_j_recentPost.setText(dbHelper.getMostRecentPostGivenId(SessionData.getLoggedInUser().getId()).getPost());
+        Post p = dbHelper.getMostRecentPostGivenId(SessionData.getLoggedInUser().getId());
+        if(p != null)
+        {
+            tv_j_recentPost.setText(p.getPost());
+        }
+        else {
+            tv_j_recentPost.setText("You do not have any posts.  You should make one!");
+        }
+
     }
 }
