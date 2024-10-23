@@ -7,6 +7,18 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <Button
+        android:id="@+id/btn_v_main_FindId"
+        android:layout_width="149dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="238dp"
+        android:text="Find Id"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_v_main_register" />
+
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
@@ -25,7 +37,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="29dp"
-        android:layout_marginBottom="44dp"
+        android:layout_marginBottom="45dp"
         android:text="Enter your user id"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/et_v_main_userId"
@@ -47,16 +59,14 @@
 
     <Button
         android:id="@+id/btn_v_main_login"
-        android:layout_width="0dp"
+        android:layout_width="145dp"
         android:layout_height="0dp"
-        android:layout_marginStart="2dp"
-        android:layout_marginEnd="2dp"
         android:layout_marginBottom="3dp"
         android:text="Login"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/btn_v_main_register"
-        app:layout_constraintEnd_toEndOf="@+id/btn_v_main_register"
-        app:layout_constraintStart_toStartOf="@+id/btn_v_main_register"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_v_main_userFname" />
 
     <TextView
@@ -74,10 +84,9 @@
         android:id="@+id/btn_v_main_register"
         android:layout_width="149dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="289dp"
         android:text="Register"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/btn_v_main_FindId"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_v_main_login" />

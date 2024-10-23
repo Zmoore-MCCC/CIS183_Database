@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity
     Button btn_j_main_login;
     TextView tv_j_userFname;
     Button btn_j_register;
+    Button btn_j_findId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity
         btn_j_main_login = findViewById(R.id.btn_v_main_login);
         tv_j_userFname   = findViewById(R.id.tv_v_main_userFname);
         btn_j_register   = findViewById(R.id.btn_v_main_register);
+        btn_j_findId     = findViewById(R.id.btn_v_main_FindId);
 
         //make a new instance of the dbHelper.
         dbHelper = new DatabaseHelper(this);
@@ -46,6 +48,16 @@ public class MainActivity extends AppCompatActivity
 
         loginButtonClickListener();
         registerButtonClickListener();
+        findIdButtonClickListener();
+    }
+    private void findIdButtonClickListener()
+    {
+        btn_j_findId.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, FindUserId.class));
+            }
+        });
     }
     //This is just used for testing.  I want to make sure that I can add data to my database.
     private void checkAllTableCounts()

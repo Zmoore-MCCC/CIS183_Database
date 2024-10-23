@@ -1,11 +1,14 @@
 package com.example.cis183_database;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+
+import java.util.ArrayList;
 
 public class DatabaseHelper extends SQLiteOpenHelper
 {
@@ -303,5 +306,86 @@ public class DatabaseHelper extends SQLiteOpenHelper
 
         db.close();
     }
+
+    @SuppressLint("Range")
+    public ArrayList<String> findUserGivenCriteria(String f, String l)
+    {
+        //Log.d("passed data ", f + "  " + l);
+        ArrayList<String> listUsers = new ArrayList<String>();
+        String selectStatement = "Select * from " + users_table_name + " Where ";
+        if(f.isEmpty())
+        {
+            selectStatement += "fname is not null ";
+        }
+        else
+        {
+            selectStatement += "fname = '" + f + "' ";
+        }
+        selectStatement += " and ";
+        if(l.isEmpty())
+        {
+            selectStatement += "lname is not null ";
+        }
+        else
+        {
+            selectStatement += "lname = '" + l + "' ";
+        }
+
+        selectStatement += ";";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery(selectStatement, null);
+        int id;
+        String fname;
+        String lname;
+
+        if(cursor.moveToFirst())
+        {
+           do
+           {
+               id = cursor.getInt(cursor.getColumnIndex("userId"));
+               fname = cursor.getString(cursor.getColumnIndex("fname"));
+               lname = cursor.getString(cursor.getColumnIndex("lname"));
+
+               String info = id + " " + fname + " " + lname;
+
+               listUsers.add(info);
+           }
+           while(cursor.moveToNext());
+        }
+        db.close();
+        return listUsers;
+    }
+
+    public ArrayList<String> getAllPostsGivenUser()
+    {
+        String selectStatement = "Select postData from " + posts_table_name + " Where userId = '" + SessionData.getLoggedInUser().getId() + "';";
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery(selectStatement, null);
+        ArrayList<String> posts = new ArrayList<String>();
+
+
+        if(cursor.moveToFirst())
+        {
+            do
+            {
+                String post = cursor.getString(0);
+                posts.add(post);
+
+            }
+            while(cursor.moveToNext());
+
+        }
+
+        db.close();
+        return posts;
+
+    }
+
+    //delete sql:
+    //delete from posts where postId = 'whatever id you want to delete'
+    //always delete off primary key
 
 }
